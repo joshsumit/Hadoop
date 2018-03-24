@@ -1,0 +1,29 @@
+curl -O http://www-eu.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
+tar -xvf sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
+mv  sqoop-1.4.7.bin__hadoop-2.6.0 /usr/local/sqoop
+
+export SQOOP_HOME=/usr/local/sqoop
+ export PATH=$PATH:$SQOOP_HOME/bin
+ 
+cd $SQOOP_HOME/conf
+mv sqoop-env-template.sh sqoop-env.sh
+
+
+
+Update sqoop-env.sh
+export HADOOP_COMMON_HOME=/usr/local/hadoop 
+export HADOOP_MAPRED_HOME=/usr/local/hadoop
+
+cd  	/usr/local/sqoop/lib
+curl -O https://download.microsoft.com/download/0/2/A/02AAE597-3865-456C-AE7F-613F99F850A8/sqljdbc_6.0.8112.200_enu.tar.gz
+
+tar -xvf  sqljdbc_6.0.8112.200_enu.tar.gz
+mv  sqljdbc_6.0/enu/jre7/sqljdbc41.jar  /usr/local/sqoop/
+
+cd $SQOOP_HOME/bin
+sqoop-version
+
+
+
+sqoop list-databases --connect "jdbc:sqlserver://sjtestdbserver.database.windows.net" --username sumit -P
+sqoop import --connect "jdbc:sqlserver://sjtestdbserver.database.windows.net;database=sjtestdb" --username sumit -P --table 'newtable'
